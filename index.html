@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mazzo di Carte</title>
+  <style>
+    #deck-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    img {
+      width: 150px;
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="deck-container">
+    <!-- <button onclick="shuffleDeck()">Mescola</button> -->
+    <button onclick="drawCard()">Pesca una carta</button>
+    <div id="card-display">
+      <img id="current-card" style="transform: rotate(90deg); min-width: 800px; margin-top: -120px" src="" alt="Carta">
+    </div>
+  </div>
+
+  <script>
+    // Array contenente i nomi dei file immagine delle carte
+    const deck = [
+      "opca-1-chaotic-aether.jpg",
+      "opca-2-interplanar-tunnel.jpg",
+      "opca-3-morphic-tide.jpg",
+      "opca-4-mutual-epiphany.jpg",
+      "opca-5-planewide-disaster.jpg",
+      "opca-6-reality-shaping.jpg",
+      "opca-7-spatial-merging.jpg",
+      "opca-8-time-distortion.jpg",
+      "opca-10-the-aether-flues.jpg",
+      "opca-11-agyrem.jpg",
+      "opca-12-akoum.jpg",
+      "opca-13-aretopolis.jpg",
+      "opca-14-astral-arena.jpg",
+      "opca-15-bant.jpg",
+      "opca-16-bloodhill-bastion.jpg",
+      "opca-17-celestine-reef.jpg",
+      "opca-18-cliffside-market.jpg",
+      "opca-19-the-dark-barony.jpg",
+      "opca-20-edge-of-malacol.jpg",
+      "opca-21-eloren-wilds.jpg",
+      "opca-22-the-eon-fog.jpg",
+      "opca-23-feeding-grounds.jpg",
+      "opca-24-fields-of-summer.jpg",
+      "opca-25-the-fourth-sphere.jpg",
+      "opca-26-furnace-layer.jpg",
+      "opca-27-gavony.jpg",
+      "opca-28-glen-elendra.jpg",
+      "opca-29-glimmervoid-basin.jpg",
+      "opca-30-goldmeadow.jpg",
+      "opca-31-grand-ossuary.jpg",
+      "opca-32-the-great-forest.jpg",
+      "opca-33-grixis.jpg",
+      "opca-34-grove-of-the-dreampods.jpg",
+      "opca-35-hedron-fields-of-agadeem.jpg",
+      "opca-36-the-hippodrome.jpg",
+      "opca-37-horizon-boughs.jpg",
+      "opca-38-immersturm.jpg",
+      "opca-39-isle-of-vesuva.jpg",
+      "opca-40-izzet-steam-maze.jpg",
+      "opca-41-jund.jpg",
+      "opca-42-kessig.jpg",
+      "opca-43-kharasha-foothills.jpg",
+      "opca-44-kilnspire-district.jpg",
+      "opca-45-krosa.jpg",
+      "opca-46-lair-of-the-ashen-idol.jpg",
+      "opca-47-lethe-lake.jpg",
+      "opca-48-llanowar.jpg",
+      "opca-49-the-maelstrom.jpg",
+      "opca-50-minamo.jpg",
+      "opca-51-mirrored-depths.jpg",
+      "opca-52-mount-keralia.jpg",
+      "opca-53-murasa.jpg",
+      "opca-54-naar-isle.jpg",
+      "opca-55-naya.jpg",
+      "opca-56-nephalia.jpg",
+      "opca-57-norn-s-dominion.jpg",
+      "opca-58-onakke-catacomb.jpg",
+      "opca-59-orochi-colony.jpg",
+      "opca-60-orzhova.jpg",
+      "opca-61-otaria.jpg",
+      "opca-62-panopticon.jpg",
+      "opca-63-pools-of-becoming.jpg",
+      "opca-64-prahv.jpg",
+      "opca-65-quicksilver-sea.jpg",
+      "opca-66-raven-s-run.jpg",
+      "opca-67-sanctum-of-serra.jpg",
+      "opca-68-sea-of-sand.jpg",
+      "opca-69-selesnya-loft-gardens.jpg",
+      "opca-70-shiv.jpg",
+      "opca-71-skybreen.jpg",
+      "opca-72-sokenzan.jpg",
+      "opca-73-stairs-to-infinity.jpg",
+      "opca-74-stensia.jpg",
+      "opca-75-stronghold-furnace.jpg",
+      "opca-76-takenuma.jpg",
+      "opca-77-talon-gates.jpg",
+      "opca-78-tazeem.jpg",
+      "opca-79-tember-city.jpg",
+      "opca-80-trail-of-the-mage-rings.jpg",
+      "opca-81-truga-jungle.jpg",
+      "opca-82-turri-island.jpg",
+      "opca-83-undercity-reaches.jpg",
+      "opca-84-velis-vel.jpg",
+      "opca-85-windriddle-palaces.jpg",
+      "opca-86-the-zephyr-maze.jpg",
+      // Aggiungi tutti i nomi dei file delle carte qui...
+    ];
+
+    let currentCardIndex = 0;
+    shuffleDeck();
+    // Funzione per mescolare il mazzo di carte
+    function shuffleDeck() {
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]]; // Scambia le carte
+      }
+      currentCardIndex = 0; // Reset all'inizio
+      document.getElementById("current-card").src = deck[currentCardIndex];
+      drawCard();
+    }
+
+    // Funzione per pescare una carta
+    function drawCard() {
+      if (deck.length === 0) {
+        alert("Il mazzo è vuoto!");
+        return;
+      }
+
+      // Mostra la carta corrente
+      document.getElementById("current-card").src = "cards/" + deck[currentCardIndex];
+
+      // Aggiorna l'indice per la prossima carta
+      currentCardIndex = (currentCardIndex + 1) % deck.length;
+    }
+  </script>
+
+</body>
+
+</html>
